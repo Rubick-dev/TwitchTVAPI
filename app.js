@@ -1,10 +1,13 @@
 // This is the CLIENT-ID followed by OAUTH TOKEN for Twitch.TV Helix API
+// -------------------------------------------- //
 var API_KEY = "vffqx1g11p6hth17tppjuc1zr1vrwm";
 var OAUTH_TOKEN = "g5smvs4gs8a5msnc2v7px6zxmz3pgk";
+// ------------------------------------------- //
 var channelNames = ["freecodecamp", "dotatv247", "AdmiralBulldog", "ESL_DOTA2", "beyondthesummit" ];
 var url = "https://api.twitch.tv/helix/users?login="
 var url2 = "https://api.twitch.tv/helix/streams?user_id=";
 
+//Iterate through each channelName and run an ajax call for each one individually.
 channelNames.forEach(userLogin => {
   
   $.ajax({  
@@ -20,7 +23,7 @@ channelNames.forEach(userLogin => {
       var loginID = dataR.data[0].id;
       var displayName = dataR.data[0].display_name;
       var displayIMG = dataR.data[0].profile_image_url;
-      
+      // Collect and store the info needed from this Ajax call then run the function with the required data.
       streamStatus(loginID, displayName, displayIMG);
     },
     error: function () {
@@ -29,6 +32,8 @@ channelNames.forEach(userLogin => {
   });
 });
 
+// This function runs another ajax call to get the remaining required data. Then builds out the HTML with the required fields.
+// This CSS and HTML is a little poor quality however the focus on the project was to the API work so focused on that.
 function streamStatus(loginID, displayName, displayIMG) {
   $.ajax({  
     type:     'GET',  
@@ -42,18 +47,19 @@ function streamStatus(loginID, displayName, displayIMG) {
       let html = ""; 
       var streamMsg = "";
       var urlLink = "";
-            
+      
+      // This checks if the stream is live or not and builds accordingly.
       if (dataR2.data.length === 0) {
         html = `<li class="offline"><img class="image" src="${displayIMG}"> <span class="name">${displayName}</span> - "Streamer Currently offline, check back later"</li>`;
         document.getElementById("insert").innerHTML += html;
       } else {
         streamMsg = dataR2.data[0].title;
-        var begin = dataR2.data[0].thumbnail_url.indexOf('live_user_') + 10; //10 is the length of 'live_user_'
+        // Following 4 lines builds out the link address for the stream.
+        var begin = dataR2.data[0].thumbnail_url.indexOf('live_user_') + 10;
         var end = dataR2.data[0].thumbnail_url.lastIndexOf('-\{width\}');
         var username = dataR2.data[0].thumbnail_url.slice(begin, end);
         urlLink = 'https://www.twitch.tv/' + username;
         html = `<li class="online"><a href="${urlLink}" target="_blank"><img class="image" src="${displayIMG}"></a> <span class="name">${displayName}</span> - "${streamMsg}" </li>`;
-        console.log(html);
         document.getElementById("insert").innerHTML += html;
       }
     },
