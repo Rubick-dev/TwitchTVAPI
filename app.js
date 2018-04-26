@@ -6,6 +6,7 @@
   var channelNames = ["freecodecamp", "dotatv247", "AdmiralBulldog", "ESL_DOTA2", "beyondthesummit" ];
   var url = "https://api.twitch.tv/helix/users?login="
   var url2 = "https://api.twitch.tv/helix/streams?user_id=";
+  var count = 0;
 
   //Iterate through each channelName and run an ajax call for each one individually.
   
@@ -49,10 +50,12 @@ window.onload = function() {
         let html = ""; 
         var streamMsg = "";
         var urlLink = "";
+        count = count + 1;
         
         // This checks if the stream is live or not and builds accordingly.
         if (dataR2.data.length === 0) {
-          html = `<li class="offline"><img class="image" src="${displayIMG}"> <span class="name">${displayName}</span> - "Streamer Currently offline, check back later"</li>`;
+          html = `<div class="image${count} red offline"><img class="displayImage" src="${displayIMG}"></div><div class="title${count} red"><h3 class="name">${displayName}</h3></div><div class="description${count} red desc"><p>Streamer Currently offline, check back later</p></div>`;
+
           document.getElementById("insert").innerHTML += html;
         } else {
           streamMsg = dataR2.data[0].title;
@@ -61,7 +64,7 @@ window.onload = function() {
           var end = dataR2.data[0].thumbnail_url.lastIndexOf('-\{width\}');
           var username = dataR2.data[0].thumbnail_url.slice(begin, end);
           urlLink = 'https://www.twitch.tv/' + username;
-          html = `<li class="online"><a href="${urlLink}" target="_blank"><img class="image" src="${displayIMG}"></a> <span class="name">${displayName}</span> - "${streamMsg}" </li>`;
+          html = `<div class="image${count} green"><a href="${urlLink}" target="_blank"><img class="displayImage" src="${displayIMG}"></a></div><div class="title${count} green"><h3 class="name">${displayName}</h3></div><div class="description${count} green desc"><p>${streamMsg}" </p></div>`;
           document.getElementById("insert").innerHTML += html;
         }
       },

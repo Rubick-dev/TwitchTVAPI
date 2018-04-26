@@ -9,23 +9,12 @@ h1 {
   font-size: 3rem;
 }
 
-.image {
+.displayImage {
   border-radius: 50%;
   width: 70px;
   height: 70px;
-  margin: 20px;  
-}
-
-ul {
-  list-style-type: none;
-  padding-left: 5px;
-  font-family: 'Exo 2', sans-serif;
-}
-
-li {
-  border-top: 1px solid black;
-  margin-top: 5px;
-  font-size: .8rem; 
+  margin: 20px;
+  align-content: center;  
 }
 
 .offline {
@@ -41,75 +30,38 @@ li {
 }
 
 .wrapper {
+  height: 100%;
+  max-width: 1000px;
   margin: auto;
-  justify-content: center;
   display: grid;
-  grid-template-columns: 150px 400px 550px;
-  grid-template-rows: 120px 150px 150px 150px 150px 150px;
+  grid-template: repeat(6, auto) / 1fr 230px 7fr; /* rows first colums sescond */
+  grid-row-gap: 3px;
+  font-family: 'Exo 2', sans-serif;
 }
 
 .heading {
-  grid-column: 1 / 4;
+  grid-column: 1 / 4; /*use -1 instead of 4 to span until the last column line */
   text-align: center;
   margin-bottom: 20px;
+  justify-self: center;
 }
 
-.image1 {
-  background-color: red;
+.red {
+  background-color: rgb(190, 75, 75);
+  text-align: left;
 }
 
-.image2 {
-  background-color: green;
+.green {
+  background-color: rgb(54, 148, 54);
+  text-align: left;
 }
 
-.image3 {
-  background-color: red;
+.name {
+  margin-right: 20px;
+  padding-top: 15px;
 }
 
-.image4 {
-  background-color: green;
-}
-
-.image5 {
-  background-color: red;
-}
-
-.title1 {
-  background-color:Purple;
-}
-
-.title2 {
-  background-color: pink;
-}
-
-.title3 {
-  background-color:Purple;
-}
-
-.title4 {
-  background-color: Pink;
-}
-
-.title5 {
-  background-color:Purple;
-}
-
-.description1 {
-  background-color: Blue;
-}
-
-.description2 {
-  background-color: yellow;
-}
-
-.description3 {
-  background-color: Blue;
-}
-
-.description4 {
-  background-color: yellow;
-}
-
-.description5 {
-  background-color: Blue;
+.desc {
+  align-self: center stretch;
+  padding-top: 25px;
 }
