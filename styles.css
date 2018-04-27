@@ -28,7 +28,13 @@ h1 {
 .name {
   font-size: 1.5rem;
 }
+.wrapper > div {
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
 
+/* ### CSS GRID ### */
 .wrapper {
   height: 100%;
   max-width: 1000px;
@@ -40,7 +46,7 @@ h1 {
 }
 
 .heading {
-  grid-column: 1 / 4; /*use -1 instead of 4 to span until the last column line */
+  grid-column: 1 /-1; /*use -1 instead of 4 to span until the last column line */
   text-align: center;
   margin-bottom: 20px;
   justify-self: center;
@@ -48,20 +54,37 @@ h1 {
 
 .red {
   background-color: rgb(190, 75, 75);
-  text-align: left;
 }
 
 .green {
   background-color: rgb(54, 148, 54);
-  text-align: left;
 }
 
 .name {
   margin-right: 20px;
-  padding-top: 15px;
 }
 
 .desc {
   align-self: center stretch;
-  padding-top: 25px;
+  padding-right: 15px;
+}
+
+@media only screen and (max-width: 500px) {
+  .wrapper {
+    margin: auto;
+    display: grid;
+    grid-template: repeat(12, auto) / 1fr 4fr; /* rows first colums sescond */
+    grid-row-gap: unset;
+    font-family: 'Exo 2', sans-serif;
+  }
+
+  .description1,
+  .description2,
+  .description3,
+  .description4,
+  .description5 {
+    grid-column: 1 / -1;
+    border-bottom: 5px solid black;
+    padding: 20px;
+  }
 }
